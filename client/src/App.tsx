@@ -307,7 +307,7 @@ function Router() {
   useEffect(() => {
     if (isAuthenticated && user && location !== "/onboarding" && location !== "/login") {
       const isProfileMissing = profileQuery.isSuccess && !profileQuery.data?.userId;
-      if (!user.isOnboarded || isProfileMissing) {
+      if (!user.isOnboarded) {
         navigate("/onboarding");
       }
     }

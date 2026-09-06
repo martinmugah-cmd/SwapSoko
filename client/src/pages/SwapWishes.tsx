@@ -597,7 +597,7 @@ export default function SwapWishesPage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-[#F8FAFC] bottom-nav-safe"
+      className="min-h-[100dvh] bg-[#F8FAFC] bottom-nav-safe"
     >
       {/* Dynamic Floating Header */}
       <div className="sticky top-0 z-40 px-4 pt-4 pb-2">

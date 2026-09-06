@@ -81,7 +81,7 @@ export default function Home() {
 
   return (
     <PullToRefresh onRefresh={handleRefresh}>
-      <div className="pb-32 min-h-screen font-sans relative overflow-hidden">
+      <div className="pb-32 min-h-[100dvh] font-sans relative overflow-hidden">
         
         
       
@@ -331,6 +331,9 @@ export default function Home() {
           </div>
           
           <div className="flex gap-5 overflow-x-auto px-6 pb-8 scrollbar-hide snap-x pt-2">
+            {feedQuery.isLoading && [1, 2, 3].map(i => (
+              <div key={`sk-home-${i}`} className="snap-start shrink-0 w-[280px] h-[360px] rounded-[40px] bg-slate-200/50 animate-pulse border-[4px] border-white/80" />
+            ))}
             {(feedQuery.data?.items || []).filter((l: any) => l.userId?.toString() !== user?.id?.toString()).slice(0, 10).map((listing: any) => {
               let img = null;
               if (Array.isArray(listing.images) && listing.images.length > 0) {

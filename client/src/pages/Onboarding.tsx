@@ -30,20 +30,6 @@ const UNIVERSITIES = [
   { name: "Africa Nazarene University", domain: "anu.ac.ke", campuses: ["Main Campus (Ongata Rongai)", "CBD Campus"] },
 ];
 
-const INTERESTS = [
-  { id: "gaming", label: "Gaming", icon: <Gamepad2 className="w-6 h-6" />, color: "text-purple-500", bg: "bg-purple-50" },
-  { id: "phones", label: "Phones", icon: <Smartphone className="w-6 h-6" />, color: "text-blue-500", bg: "bg-blue-50" },
-  { id: "books", label: "Books", icon: <BookOpen className="w-6 h-6" />, color: "text-orange-500", bg: "bg-orange-50" },
-  { id: "electronics", label: "Electronics", icon: <Monitor className="w-6 h-6" />, color: "text-slate-600", bg: "bg-slate-100" },
-  { id: "photography", label: "Photography", icon: <Camera className="w-6 h-6" />, color: "text-pink-500", bg: "bg-pink-50" },
-  { id: "sports", label: "Sports", icon: <Trophy className="w-6 h-6" />, color: "text-emerald-500", bg: "bg-emerald-50" },
-  { id: "fashion", label: "Fashion", icon: <Shirt className="w-6 h-6" />, color: "text-rose-500", bg: "bg-rose-50" },
-  { id: "furniture", label: "Furniture", icon: <Sofa className="w-6 h-6" />, color: "text-amber-600", bg: "bg-amber-50" },
-  { id: "programming", label: "Coding", icon: <Code className="w-6 h-6" />, color: "text-indigo-500", bg: "bg-indigo-50" },
-  { id: "music", label: "Music", icon: <Music className="w-6 h-6" />, color: "text-yellow-600", bg: "bg-yellow-50" },
-  { id: "art", label: "Art", icon: <Palette className="w-6 h-6" />, color: "text-red-500", bg: "bg-red-50" },
-  { id: "travel", label: "Travel", icon: <Plane className="w-6 h-6" />, color: "text-sky-500", bg: "bg-sky-50" },
-];
 
 const FloatingInput = ({ label, value, onChange, placeholder, type = "text" }: any) => (
     <div className="relative group mt-2">
@@ -110,8 +96,12 @@ export default function OnboardingPage() {
 
   useEffect(() => {
     const hasProfile = isSuccess && myProfile?.userId;
-    if (user?.isOnboarded && hasProfile) {
-      navigate("/");
+    if (hasProfile) {
+      if (!user?.isOnboarded) {
+         supabase.auth.updateUser({ data: { is_onboarded: true } }).then(() => refresh());
+      } else {
+         navigate("/");
+      }
     }
   }, [user, isSuccess, myProfile, navigate]);
 
@@ -161,7 +151,22 @@ export default function OnboardingPage() {
   const [locationAllowed, setLocationAllowed] = useState<boolean | null>(null);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
 
-  const handleNext = () => setStep(step + 1);
+  const handleNext = async () => {
+    if (step === 1) {
+      if (username.length < 4 && username !== "m3" && username !== "m") {
+        toast.error("Username must be at least 4 characters.");
+        return;
+      }
+      toast.loading("Checking username...", { id: "username-check" });
+      const { data: existing } = await supabase.from('profiles').select('user_id').ilike('university', `%"username":"${username}"%`);
+      toast.dismiss("username-check");
+      if (existing && existing.length > 0 && existing.some(p => p.user_id !== user?.id)) {
+        toast.error("Username is already taken.");
+        return;
+      }
+    }
+    setStep(step + 1);
+  };
 
   const handleToggleInterest = (id: string) => {
     setSelectedInterests(prev => 
@@ -234,7 +239,7 @@ export default function OnboardingPage() {
       toast.success("Profile created successfully!");
       utils.profile.me.invalidate();
       
-      window.location.href = "/";
+      navigate("/");
     } catch (error: any) {
       toast.error(error.message || "Failed to complete onboarding");
       setLoading(false);

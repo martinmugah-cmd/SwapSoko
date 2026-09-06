@@ -54,7 +54,7 @@ export default function AdminDashboard() {
 
   if (isChecking || loading) {
     return (
-      <div className="min-h-screen bg-muted p-6 space-y-6">
+      <div className="min-h-[100dvh] bg-muted p-6 space-y-6">
         <div className="h-16 bg-white/50 animate-pulse rounded-3xl w-full max-w-4xl mx-auto" />
         <div className="h-12 bg-white/50 animate-pulse rounded-2xl w-full max-w-4xl mx-auto" />
         <div className="h-[400px] bg-white/50 animate-pulse rounded-3xl w-full max-w-4xl mx-auto" />
@@ -76,7 +76,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-muted pb-32 font-sans">
+    <div className="min-h-[100dvh] bg-muted pb-32 font-sans">
       {/* Header */}
       <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border px-6 pt-12 pb-6">
         <div className="max-w-4xl mx-auto flex items-center justify-between">

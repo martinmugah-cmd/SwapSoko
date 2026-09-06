@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
+import { INTERESTS } from "@/lib/interests";
 import { useAppStore } from "@/store";
 import { 
   ChevronLeft, Camera, CheckCircle, Shield, AlertCircle, 
@@ -31,20 +32,6 @@ const UNIVERSITIES = [
   { name: "Other / Not a student", campuses: ["N/A"] }
 ];
 
-const INTERESTS = [
-  { id: "gaming", label: "Gaming", icon: <Gamepad2 className="w-5 h-5" />, color: "text-purple-500", bg: "bg-purple-50" },
-  { id: "phones", label: "Phones", icon: <Smartphone className="w-5 h-5" />, color: "text-blue-500", bg: "bg-blue-50" },
-  { id: "books", label: "Books", icon: <BookOpen className="w-5 h-5" />, color: "text-orange-500", bg: "bg-orange-50" },
-  { id: "electronics", label: "Electronics", icon: <Monitor className="w-5 h-5" />, color: "text-slate-600", bg: "bg-slate-100" },
-  { id: "photography", label: "Photography", icon: <Camera className="w-5 h-5" />, color: "text-pink-500", bg: "bg-pink-50" },
-  { id: "sports", label: "Sports", icon: <Trophy className="w-5 h-5" />, color: "text-emerald-500", bg: "bg-emerald-50" },
-  { id: "fashion", label: "Fashion", icon: <Shirt className="w-5 h-5" />, color: "text-rose-500", bg: "bg-rose-50" },
-  { id: "furniture", label: "Furniture", icon: <Sofa className="w-5 h-5" />, color: "text-amber-600", bg: "bg-amber-50" },
-  { id: "programming", label: "Coding", icon: <Code className="w-5 h-5" />, color: "text-indigo-500", bg: "bg-indigo-50" },
-  { id: "music", label: "Music", icon: <Music className="w-5 h-5" />, color: "text-yellow-600", bg: "bg-yellow-50" },
-  { id: "art", label: "Art", icon: <Palette className="w-5 h-5" />, color: "text-red-500", bg: "bg-red-50" },
-  { id: "travel", label: "Travel", icon: <Plane className="w-5 h-5" />, color: "text-sky-500", bg: "bg-sky-50" },
-];
 
 // Helper for file upload
 async function uploadFile(file: File): Promise<string> {
@@ -146,7 +133,7 @@ function EditProfileForm({ user, profile }: { user: any, profile: any }) {
   
   const nameParts = (user.metadata?.name || prof.name || "").split(" ");
   
-  const initAvatarUrl = existingUniData.avatarUrl || prof.avatarUrl || user.avatarUrl || "";
+  const initAvatarUrl = existingUniData.avatarUrl || prof.avatarUrl || user.metadata?.avatar_url || "";
   const initFirstName = nameParts[0] || "";
   const initLastName = nameParts.slice(1).join(" ") || "";
   const initUsername = existingUniData.username || user.metadata?.username || nameParts.join("").toLowerCase() || "";
@@ -166,6 +153,22 @@ function EditProfileForm({ user, profile }: { user: any, profile: any }) {
 
   // Initial States derived directly from guaranteed data
   const [avatarUrl, setAvatarUrl] = useState(initAvatarUrl);
+  useEffect(() => {
+    if (profileQuery.isSuccess && profileQuery.data) {
+       const p = profileQuery.data;
+       const ud = safeParse(p.university);
+       setAvatarUrl(ud.avatarUrl || p.avatarUrl || user.metadata?.avatar_url || "");
+       setUsername(ud.username || user.metadata?.username || nameParts.join("").toLowerCase() || "");
+       setBio(ud.bio || "");
+       setUniversity(ud.val || "");
+       setCourse(ud.course || "");
+       setYearOfStudy(ud.yearOfStudy || "");
+       setGraduationYear(ud.graduationYear || "");
+       setStudentEmail(ud.studentEmail || "");
+       setPrefs(ud.prefs || { notifications: true, nearby: true, communities: true, proposals: true });
+       setPrivacy(ud.privacy || { visibility: "SwapSoko Users", showDistance: true, showLastActive: true });
+    }
+  }, [profileQuery.isSuccess, profileQuery.data]);
   const [firstName, setFirstName] = useState(initFirstName);
   const [lastName, setLastName] = useState(initLastName);
   const [username, setUsername] = useState(initUsername);
@@ -222,6 +225,17 @@ function EditProfileForm({ user, profile }: { user: any, profile: any }) {
     try {
       const fullName = `${firstName} ${lastName}`.trim();
       
+      if (username.length < 4 && username !== "m3" && username !== "m") {
+         toast.error("Username must be at least 4 characters.", { id: "save" });
+         setSaving(false);
+         return;
+      }
+      const { data: existing } = await supabase.from('profiles').select('user_id').ilike('university', `%"username":"${username}"%`);
+      if (existing && existing.length > 0 && existing.some(p => p.user_id !== user?.id)) {
+         toast.error("Username is already taken.", { id: "save" });
+         setSaving(false);
+         return;
+      }
       const metadata = {
         name: fullName,
         username,

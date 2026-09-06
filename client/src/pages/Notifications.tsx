@@ -231,7 +231,7 @@ export default function NotificationsPage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-white flex flex-col relative overflow-hidden"
+      className="min-h-[100dvh] bg-white flex flex-col relative overflow-hidden"
     >
       {/* Dynamic Floating Header */}
       <div className="sticky top-0 z-40 px-4 pt-4 pb-2">

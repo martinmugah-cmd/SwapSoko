@@ -214,7 +214,7 @@ function PublicProfileView({
 
   if (privacyVisibility === "SwapSoko Users" && !user) {
     return (
-      <div className="min-h-screen relative overflow-y-auto bg-[#F8FAFC] pb-24">
+      <div className="min-h-[100dvh] relative overflow-y-auto bg-[#F8FAFC] pb-24">
         <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-md px-4 py-3 flex items-center justify-between border-b border-white/40">
            <button onClick={onBack || (() => window.history.back())} className="w-10 h-10 flex items-center justify-center rounded-2xl bg-white/60 hover:bg-white transition-colors shadow-sm"><ChevronLeft size={24} className="text-slate-900"/></button>
         </div>
@@ -502,6 +502,7 @@ export default function ProfilePage({ uid, onBack }: { uid?: string, onBack?: ()
   const [matchId, paramsId] = useRoute("/profile/:id");
   const targetUserId = uid || ((matchId && paramsId?.id) ? paramsId.id : user?.id);
   const isMe = targetUserId === user?.id;
+  if (!isAuthenticated && !isMe) return <div className="flex flex-col items-center justify-center h-[100dvh] bg-slate-50 px-6 text-center"><Shield className="w-16 h-16 text-slate-300 mb-4" /><h2 className="text-xl font-black text-slate-900 mb-2">Private Profile</h2><p className="text-sm text-slate-500 mb-8">This user has set their profile visibility to SwapSoko users only. Log in or create an account to view their profile.</p><button onClick={() => window.location.href = "/login"} className="w-full bg-slate-900 text-white font-bold py-4 rounded-[20px]">Login to SwapSoko</button><button onClick={() => window.history.back()} className="mt-4 text-slate-500 font-bold text-sm">Go Back</button></div>;
 
   const profileQuery = trpc.profile.get.useQuery({ id: targetUserId }, { enabled: !!targetUserId });
   const profileData = profileQuery.data as any;
@@ -686,7 +687,7 @@ export default function ProfilePage({ uid, onBack }: { uid?: string, onBack?: ()
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen relative overflow-y-auto bg-white bottom-nav-safe"
+      className="min-h-[100dvh] relative overflow-y-auto bg-white bottom-nav-safe"
     >
       
       
@@ -990,7 +991,7 @@ export default function ProfilePage({ uid, onBack }: { uid?: string, onBack?: ()
                               </div>
                               <div className="flex gap-2">
                                 <button onClick={() => navigate(`/chat/${p.proposerId === user?.id ? p.receiverId : p.proposerId}`)} className="flex-1 py-2 bg-gray-100 hover:bg-gray-200 text-slate-900 font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1"><MessageCircle className="w-3.5 h-3.5" /> Chat</button>
-                                <button onClick={() => navigate(`/verify?id=${p.id}`)} className="flex-1 py-2 bg-slate-900 hover:bg-gray-800 text-white font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1"><QrCode className="w-3.5 h-3.5" /> Verify In-Person</button>
+                                <button onClick={() => navigate(`/verification?proposal=${p.id}`)} className="flex-1 py-2 bg-slate-900 hover:bg-gray-800 text-white font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1"><QrCode className="w-3.5 h-3.5" /> Verify In-Person</button>
                               </div>
                             </div>
                           )}
@@ -1131,7 +1132,7 @@ export default function ProfilePage({ uid, onBack }: { uid?: string, onBack?: ()
             {[
               { icon: <UserPlus className="w-4 h-4 text-white" />, label: "Invite Friends", color: "#34C759", action: () => {
                 const inviteLink = `${window.location.origin}`;
-                navigator.clipboard.writeText(inviteLink);
+                if (navigator.share) { navigator.share({ title: "SwapSoko", text: "Join me on SwapSoko to trade items!", url: inviteLink }).catch(() => {}); } else { navigator.clipboard.writeText(inviteLink); }
                 toast.success("Invite link copied!");
               }},
               { icon: <Bell className="w-4 h-4 text-white" />, label: "Notifications", color: "#007AFF", action: () => navigate("/notifications") },

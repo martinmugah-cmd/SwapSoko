@@ -103,7 +103,7 @@ export function ProposeSwapModal({ listing, onClose, onSend }: { listing: any; o
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
-                    <div className="mt-4 pt-4 border-t border-gray-100">
+                    <div className="mt-4 pt-4 border-t border-white/20">
                       <div className="flex items-center justify-between mb-2">
                         <label className="text-[13px] font-medium text-gray-600">Cash amount (KES)</label>
                         {listing?.cashTopUpAmount > 0 && (
@@ -928,7 +928,7 @@ const [detailedListing, setDetailedListing] = useState<any>(null);
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-[#F8FAFC] flex flex-col"
+      className="h-[100dvh] bg-[#F8FAFC] flex flex-col"
     >
       {/* Header */}
       {viewMode !== "feed" && (
@@ -1019,27 +1019,27 @@ const [detailedListing, setDetailedListing] = useState<any>(null);
       ) : (
         <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 overflow-hidden relative">
           {feedQuery.isLoading ? (
-            <div className="relative w-full max-w-sm" style={{ height: "65vh", maxHeight: "600px" }}>
-              <div className="absolute inset-0 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4 flex flex-col pointer-events-none overflow-hidden border border-gray-100 animate-pulse">
-                <div className="w-full h-1/2 bg-gray-100 rounded-2xl mb-4"></div>
-                <div className="h-6 bg-gray-100 rounded-full w-2/3 mb-3"></div>
-                <div className="h-4 bg-gray-100 rounded-full w-full mb-2"></div>
-                <div className="h-4 bg-gray-100 rounded-full w-4/5 mb-4"></div>
+            <div className="relative w-[94%] max-w-[360px] flex-1 aspect-[9/16] max-h-[700px] min-h-[500px]">
+              <div className="absolute inset-0 bg-slate-900 rounded-[36px] p-6 flex flex-col justify-end pointer-events-none overflow-hidden animate-pulse">
+                
+                <div className="h-8 bg-white/20 rounded-full w-2/3 mb-3"></div>
+                <div className="h-4 bg-white/20 rounded-full w-full mb-2"></div>
+                <div className="h-4 bg-white/20 rounded-full w-4/5 mb-4"></div>
                 <div className="flex gap-2 mb-4">
-                  <div className="h-8 w-20 bg-gray-100 rounded-full"></div>
-                  <div className="h-8 w-24 bg-gray-100 rounded-full"></div>
+                  <div className="h-8 w-20 bg-white/20 rounded-full"></div>
+                  <div className="h-8 w-24 bg-white/20 rounded-full"></div>
                 </div>
-                <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+                <div className="mt-auto pt-3 border-t border-white/20 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-gray-100"></div>
+                    <div className="w-9 h-9 rounded-full bg-white/20"></div>
                     <div className="space-y-1.5">
-                      <div className="w-20 h-3 bg-gray-100 rounded-full"></div>
-                      <div className="w-12 h-2.5 bg-gray-100 rounded-full"></div>
+                      <div className="w-20 h-3 bg-white/20 rounded-full"></div>
+                      <div className="w-12 h-2.5 bg-white/20 rounded-full"></div>
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <div className="w-10 h-10 rounded-full bg-gray-100"></div>
-                    <div className="w-10 h-10 rounded-full bg-gray-100"></div>
+                    <div className="w-10 h-10 rounded-full bg-white/20"></div>
+                    <div className="w-10 h-10 rounded-full bg-white/20"></div>
                   </div>
                 </div>
               </div>
@@ -1073,7 +1073,7 @@ const [detailedListing, setDetailedListing] = useState<any>(null);
           ) : (
             <>
               {/* Card stack */}
-              <div className="relative w-full max-w-sm" style={{ height: "65vh", maxHeight: "600px" }}>
+              <div className="relative w-[94%] max-w-[360px] flex-1 aspect-[9/16] max-h-[700px] min-h-[500px]">
                 <AnimatePresence>
                   {remaining.slice(0, 3).map((item: any, i: number) => (
                     <SwipeCard

@@ -581,12 +581,33 @@ const createProxy = (path: string[] = []): any => {
                       // Add jitter for randomness (discovery)
                       score += Math.random() * 5;
                       
+                      // Apply Filters
+                      if (input?.q) {
+                          const search = input.q.toLowerCase();
+                          if (!camelItem.title?.toLowerCase().includes(search) && !camelItem.description?.toLowerCase().includes(search)) {
+                              return null;
+                          }
+                      }
+                      if (input?.category && input.category !== "all") {
+                          if (camelItem.category !== input.category) return null;
+                      }
+                      if (input?.radius && camelItem.distanceKm !== undefined && input.radius !== 50) {
+                          if (camelItem.distanceKm > input.radius) return null;
+                      }
+                      if (input?.campus && input.campus !== "all") {
+                          try {
+                              const m = JSON.parse(camelItem.description || "{}");
+                              if (m.campus !== input.campus) return null;
+                          } catch(e) { return null; }
+                      }
+                      
                       camelItem.feedScore = score;
                       return camelItem;
                   });
                   
                   // User requested to see all listings in Swipes (not just videos)
                   
+                  listings = listings.filter(Boolean);
                   listings.sort((a: any, b: any) => (b.feedScore || 0) - (a.feedScore || 0));
                   
                   return { items: listings.slice(0, 20) };
@@ -729,6 +750,7 @@ const createProxy = (path: string[] = []): any => {
               }
 
               let query = (path[0] === 'admin' || isUserAdmin ? adminSupabase : supabase).from(tableName).select(selectFields).order(orderField, { ascending: tableName === 'messages' });
+              if (path[1] === 'feed' || (path[1] === 'list' && tableName === 'listings')) query = query.limit(300);
 
               if (input && input.id) {
                 if (tableName === 'profiles') {
@@ -852,6 +874,22 @@ const createProxy = (path: string[] = []): any => {
                 data = [];
               }
               
+              if (tableName === 'listings' && data && data.length > 0) {
+                const listingIds = data.map((d: any) => d.id);
+                const { data: media } = await supabase.from('listing_media').select('*').in('listing_id', listingIds);
+                if (media) {
+                  const mediaMap: Record<string, any[]> = {};
+                  media.forEach((m: any) => {
+                    const key = String(m.listing_id);
+                    if (!mediaMap[key]) mediaMap[key] = [];
+                    mediaMap[key].push(snakeToCamel(m));
+                  });
+                  data = data.map((d: any) => ({
+                    ...d,
+                    media: mediaMap[String(d.id)] || []
+                  }));
+                }
+              }
               if (tableName === 'communities' && path[1] === 'list' && (!input || !input.creatorId)) {
                   data = (data || []).filter((c: any) => c.type !== 'campus' || (c.university === uniVal && uniVal !== ""));
               }
@@ -937,6 +975,7 @@ const createProxy = (path: string[] = []): any => {
                        // Essential rules
                        if (l.status === 'finalized' || l.status === 'reserved') return false;
                        if (path[1] === 'feed' && activeUserId && l.userId === activeUserId) return false;
+                       if (path[1] === 'feed' && (!l.media || !l.media.some((m: any) => m.type === 'video'))) return false;
                        if (l.status === 'active' && !l.hasOffers && l.createdAt) {
                            let age = now - new Date(l.createdAt).getTime();
                            let maxAge = 30 * 24 * 60 * 60 * 1000;
@@ -1026,14 +1065,16 @@ const createProxy = (path: string[] = []): any => {
                     let myCommunities: number[] = [];
                     
                     if (activeUserId) {
-                       const { data: p } = await supabase.from('profiles').select().eq('user_id', activeUserId).single();
-                       myProfile = p ? snakeToCamel(p) : null;
-                       const { data: w } = await supabase.from('wishes').select().eq('user_id', activeUserId);
-                       if (w) myWishes = snakeToCamel(w);
-                       const { data: ml } = await supabase.from('listings').select().eq('user_id', activeUserId);
-                       if (ml) myListings = snakeToCamel(ml);
-                       const { data: mc } = await supabase.from('community_members').select().eq('user_id', activeUserId);
-                       if (mc) myCommunities = mc.map(m => m.community_id);
+                       const [resP, resW, resML, resMC] = await Promise.all([
+                           supabase.from('profiles').select().eq('user_id', activeUserId).single(),
+                           supabase.from('wishes').select().eq('user_id', activeUserId),
+                           supabase.from('listings').select().eq('user_id', activeUserId),
+                           supabase.from('community_members').select().eq('user_id', activeUserId)
+                       ]);
+                       myProfile = resP.data ? snakeToCamel(resP.data) : null;
+                       if (resW.data) myWishes = snakeToCamel(resW.data);
+                       if (resML.data) myListings = snakeToCamel(resML.data);
+                       if (resMC.data) myCommunities = resMC.data.map((m: any) => m.community_id);
                     }
                     
                     const userCampus = filters.campus || myProfile?.campus || "";
@@ -1378,6 +1419,8 @@ const createProxy = (path: string[] = []): any => {
                     try {
                        const parsed = JSON.parse(res.university || "{}");
                        if (parsed.role) res.role = parsed.role;
+                       if (parsed.avatarUrl) res.avatarUrl = parsed.avatarUrl;
+                       if (parsed.username) res.username = parsed.username;
                     } catch(e) {}
                  }
                  return res;
@@ -1601,6 +1644,8 @@ const createProxy = (path: string[] = []): any => {
                     try {
                        const parsed = JSON.parse(res.university || "{}");
                        if (parsed.role) res.role = parsed.role;
+                       if (parsed.avatarUrl) res.avatarUrl = parsed.avatarUrl;
+                       if (parsed.username) res.username = parsed.username;
                     } catch(e) {}
                  }
                  return res;
@@ -1717,6 +1762,12 @@ const createProxy = (path: string[] = []): any => {
                  const editableFields = ['username', 'bio', 'avatar_url', 'student_email', 'university', 'course', 'interests', 'accept_cash', 'max_swap_distance'];
                  
                  for (const field of editableFields) {
+                     if (field === 'username' && variables.username) {
+                        const username = variables.username;
+                        if (username.length < 4 && username !== "m3" && username !== "m") throw new Error("Username must be at least 4 characters.");
+                        const { data: existing } = await supabase.from('profiles').select('user_id').ilike('university', `%"username":"${username}"%`);
+                        if (existing && existing.length > 0 && existing.some(p => p.user_id !== activeUserId)) throw new Error("Username is already taken.");
+                     }
                      if (variables[field] !== undefined) updatePayload[field] = variables[field];
                  }
                  
@@ -2788,6 +2839,9 @@ const createProxy = (path: string[] = []): any => {
                   if (Array.isArray(updateData.images)) {
                     updateData.images = `{${updateData.images.map((s: string) => `"${s}"`).join(',')}}`;
                   }
+                  delete updateData.lat;
+                  delete updateData.lng;
+
                   if (Array.isArray(updateData.want_items)) {
                     updateData.want_items = `{${updateData.want_items.map((s: string) => `"${s}"`).join(',')}}`;
                   }
@@ -2908,6 +2962,9 @@ const createProxy = (path: string[] = []): any => {
                   if (Array.isArray(insertData.images)) {
                     insertData.images = `{${insertData.images.map((s: string) => `"${s}"`).join(',')}}`;
                   }
+                  delete insertData.lat;
+                  delete insertData.lng;
+
                   if (Array.isArray(insertData.want_items)) {
                     insertData.want_items = `{${insertData.want_items.map((s: string) => `"${s}"`).join(',')}}`;
                   }

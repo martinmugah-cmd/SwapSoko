@@ -1,194 +1,222 @@
+// Generated mapping to Hugeicons
 import { 
-  IoAlertCircleOutline, IoWarningOutline, IoArrowBackOutline, IoArrowForwardOutline, 
-  IoSwapHorizontalOutline, IoCashOutline, IoNotificationsOutline, IoNotificationsOffOutline, 
-  IoBookmarkOutline, IoBookOutline, IoCalendarOutline, IoCameraOutline, IoCheckmarkOutline, 
-  IoCheckmarkCircleOutline, IoCheckboxOutline, IoRestaurantOutline, IoChevronDownOutline, 
-  IoChevronBackOutline, IoChevronForwardOutline, IoChevronUpOutline, IoEllipseOutline, 
-  IoClipboardOutline, IoTimeOutline, IoCodeOutline, IoCompassOutline, IoHardwareChipOutline, 
-  IoLocateOutline, IoDownloadOutline, IoBarbellOutline, IoPencilOutline, IoDocumentTextOutline, 
-  IoFilmOutline, IoFilterOutline, IoFlagOutline, IoFlameOutline, IoGameControllerOutline, 
-  IoHammerOutline, IoGiftOutline, IoSchoolOutline, IoEllipsisVerticalOutline, IoHeartOutline, 
-  IoHomeOutline, IoImageOutline, IoInformationCircleOutline, IoLayersOutline, IoGridOutline, 
-  IoLeafOutline, IoBulbOutline, IoReloadOutline, IoLockClosedOutline, IoLogOutOutline, 
-  IoMailOutline, IoLocationOutline, IoChatbubbleOutline, IoChatboxOutline, IoRemoveOutline, 
-  IoDesktopOutline, IoEllipsisHorizontalOutline, IoMusicalNotesOutline, IoNavigateOutline, 
-  IoCubeOutline, IoColorPaletteOutline, IoMenuOutline, IoPauseOutline, IoAirplaneOutline, 
-  IoPlayOutline, IoAddOutline, IoQrCodeOutline, IoRefreshOutline, IoRepeatOutline, 
-  IoSearchOutline, IoSendOutline, IoSettingsOutline, IoShareOutline, IoShieldOutline, 
-  IoShieldCheckmarkOutline, IoShirtOutline, IoPhonePortraitOutline, IoBedOutline, IoSparklesOutline, 
-  IoSquareOutline, IoStarOutline, IoMedkitOutline, IoPricetagOutline, IoTrashOutline, 
-  IoTrophyOutline, IoPersonOutline, IoPersonRemoveOutline, IoPeopleOutline, IoBuildOutline, 
-  IoCloseOutline, IoCloseCircleOutline, IoFlashOutline
-} from "react-icons/io5";
+AlertCircleIcon,
+CircleIcon,
+ArrowLeft01Icon,
+ArrowRight01Icon,
+Dumbbell01Icon,
+Bookmark01Icon,
+BookOpen01Icon,
+Calendar01Icon,
+Camera01Icon,
+BookmarkCheck01Icon,
+ComputerCheckIcon,
+ChefHatIcon,
+AddCircleIcon,
+Clock01Icon,
+CodeIcon,
+Coins01Icon,
+CompassIcon,
+CpuIcon,
+Download01Icon,
+Film01Icon,
+FilterIcon,
+Flag01Icon,
+GiftIcon,
+HeartAddIcon,
+Home01Icon,
+Image01Icon,
+CovidInfoIcon,
+Layers01Icon,
+Leaf01Icon,
+LockIcon,
+Logout01Icon,
+Mail01Icon,
+MapPinIcon,
+CallMinusIcon,
+MoreHorizontalIcon,
+MoreVerticalIcon,
+AppleMusicIcon,
+Navigation01Icon,
+PackageIcon,
+PanelLeftIcon,
+PauseIcon,
+PlaneIcon,
+PlayIcon,
+CrownPlusIcon,
+QrCodeIcon,
+RepeatIcon,
+Search01Icon,
+AiSearchIcon,
+BitcoinSendIcon,
+Settings01Icon,
+Shield01Icon,
+Shirt01Icon,
+SmartPhone01Icon,
+Sofa01Icon,
+SparklesIcon,
+SquareIcon,
+StarIcon,
+StethoscopeIcon,
+Tag01Icon,
+UserIcon,
+UserMinus01Icon,
+UserSearch01Icon,
+Wrench01Icon,
+AdobeXdIcon,
+SixCircleIcon,
+BoundingBoxIcon,
+ZapIcon,
+AlignBoxBottomCenterIcon,
+Activity01Icon,
+ArrowUpRight01Icon,
+Mic01Icon,
+Upload01Icon,
+AiPhone01Icon,
+SmileIcon,
+MoonIcon,
+Sun01Icon,
+EyeIcon,
+BotIcon,
+HelpCircleIcon,
+GlobeIcon,
+BalanceScaleIcon,
+Award01Icon,
+Edit01Icon
+} from "hugeicons-react";
 
-export const AlertCircle = IoAlertCircleOutline;
-export const AlertTriangle = IoWarningOutline;
-export const ArrowLeft = IoArrowBackOutline;
-export const ArrowRight = IoArrowForwardOutline;
-export const ArrowRightLeft = IoSwapHorizontalOutline;
-export const Banknote = IoCashOutline;
-export const Bell = IoNotificationsOutline;
-export const BellOff = IoNotificationsOffOutline;
-export const Bookmark = IoBookmarkOutline;
-export const BookOpen = IoBookOutline;
-export const Calendar = IoCalendarOutline;
-export const Camera = IoCameraOutline;
-export const Check = IoCheckmarkOutline;
-export const CheckCircle = IoCheckmarkCircleOutline;
-export const CheckCircle2 = IoCheckmarkCircleOutline;
-export const CheckIcon = IoCheckmarkOutline;
-export const CheckSquare = IoCheckboxOutline;
-export const ChefHat = IoRestaurantOutline;
-export const ChevronDown = IoChevronDownOutline;
-export const ChevronDownIcon = IoChevronDownOutline;
-export const ChevronLeft = IoChevronBackOutline;
-export const ChevronRight = IoChevronForwardOutline;
-export const ChevronRightIcon = IoChevronForwardOutline;
-export const ChevronUpIcon = IoChevronUpOutline;
-export const CircleIcon = IoEllipseOutline;
-export const ClipboardList = IoClipboardOutline;
-export const Clock = IoTimeOutline;
-export const Code = IoCodeOutline;
-export const Coins = IoCashOutline;
-export const Compass = IoCompassOutline;
-export const Cpu = IoHardwareChipOutline;
-export const Crosshair = IoLocateOutline;
-export const Download = IoDownloadOutline;
-export const Dumbbell = IoBarbellOutline;
-export const Edit2 = IoPencilOutline;
-export const FileText = IoDocumentTextOutline;
-export const Film = IoFilmOutline;
-export const Filter = IoFilterOutline;
-export const Flag = IoFlagOutline;
-export const Flame = IoFlameOutline;
-export const Gamepad2 = IoGameControllerOutline;
-export const Gavel = IoHammerOutline;
-export const Gift = IoGiftOutline;
-export const GraduationCap = IoSchoolOutline;
-export const GripVerticalIcon = IoEllipsisVerticalOutline;
-export const Heart = IoHeartOutline;
-export const Home = IoHomeOutline;
-export const Image = IoImageOutline;
-export const Info = IoInformationCircleOutline;
-export const Layers = IoLayersOutline;
-export const LayoutDashboard = IoGridOutline;
-export const Leaf = IoLeafOutline;
-export const Lightbulb = IoBulbOutline;
-export const Loader2 = IoReloadOutline;
-export const Loader2Icon = IoReloadOutline;
-export const Lock = IoLockClosedOutline;
-export const LogOut = IoLogOutOutline;
-export const Mail = IoMailOutline;
-export const MapPin = IoLocationOutline;
-export const MessageCircle = IoChatbubbleOutline;
-export const MessageSquare = IoChatboxOutline;
-export const MinusIcon = IoRemoveOutline;
-export const Monitor = IoDesktopOutline;
-export const MoreHorizontal = IoEllipsisHorizontalOutline;
-export const MoreVertical = IoEllipsisVerticalOutline;
-export const Music = IoMusicalNotesOutline;
-export const Navigation = IoNavigateOutline;
-export const Package = IoCubeOutline;
-export const Palette = IoColorPaletteOutline;
-export const PanelLeft = IoMenuOutline;
-export const PanelLeftIcon = IoMenuOutline;
-export const Pause = IoPauseOutline;
-export const Plane = IoAirplaneOutline;
-export const Play = IoPlayOutline;
-export const Plus = IoAddOutline;
-export const QrCode = IoQrCodeOutline;
-export const RefreshCw = IoRefreshOutline;
-export const Repeat = IoRepeatOutline;
-export const Repeat2 = IoRepeatOutline;
-export const RotateCcw = IoRefreshOutline;
-export const Search = IoSearchOutline;
-export const SearchIcon = IoSearchOutline;
-export const Send = IoSendOutline;
-export const Settings = IoSettingsOutline;
-export const Share2 = IoShareOutline;
-export const Shield = IoShieldOutline;
-export const ShieldAlert = IoWarningOutline;
-export const ShieldCheck = IoShieldCheckmarkOutline;
-export const ShieldOff = IoShieldOutline;
-export const Shirt = IoShirtOutline;
-export const Smartphone = IoPhonePortraitOutline;
-export const Sofa = IoBedOutline;
-export const Sparkles = IoSparklesOutline;
-export const Square = IoSquareOutline;
-export const Star = IoStarOutline;
-export const Stethoscope = IoMedkitOutline;
-export const Tag = IoPricetagOutline;
-export const Trash2 = IoTrashOutline;
-export const Trophy = IoTrophyOutline;
-export const User = IoPersonOutline;
-export const UserMinus = IoPersonRemoveOutline;
-export const Users = IoPeopleOutline;
-export const Wrench = IoBuildOutline;
-export const X = IoCloseOutline;
-export const XCircle = IoCloseCircleOutline;
-export const XIcon = IoCloseOutline;
-export const Zap = IoFlashOutline;
-
-import { 
-  IoChevronBackOutline as IoChevronBackOutline2, 
-  IoEllipsisHorizontalOutline as IoEllipsisHorizontalOutline2,
-  IoCubeOutline as IoCubeOutline2,
-  IoBusinessOutline,
-  IoStatsChartOutline,
-  IoDocumentTextOutline as IoDocumentTextOutline2,
-  IoPersonOutline as IoPersonOutline2,
-  IoPulseOutline,
-  IoArrowUpOutline,
-  IoMicOutline,
-  IoCheckmarkDoneOutline,
-  IoCloudUploadOutline,
-  IoCallOutline,
-  IoHappyOutline,
-  IoSwapHorizontalOutline as IoSwapHorizontalOutline2,
-  IoCalendarOutline as IoCalendarOutline2,
-  IoMoonOutline,
-  IoSunnyOutline,
-  IoEyeOutline,
-  IoEyeOffOutline,
-  IoSparklesOutline as IoSparklesOutline2
-} from "react-icons/io5";
-
-export const ChevronLeftIcon = IoChevronBackOutline2;
-export const MoreHorizontalIcon = IoEllipsisHorizontalOutline2;
-export const Box = IoCubeOutline2;
-export const Building2 = IoBusinessOutline;
-export const BarChart2 = IoStatsChartOutline;
-export const ScrollText = IoDocumentTextOutline2;
-export const UserCog = IoPersonOutline2;
-export const Activity = IoPulseOutline;
-export const ArrowUpRight = IoArrowUpOutline;
-export const Mic = IoMicOutline;
-export const CheckCheck = IoCheckmarkDoneOutline;
-export const Upload = IoCloudUploadOutline;
-export const Phone = IoCallOutline;
-export const Smile = IoHappyOutline;
-export const Handshake = IoSwapHorizontalOutline2;
-export const CalendarIcon = IoCalendarOutline2;
-export const Moon = IoMoonOutline;
-export const Sun = IoSunnyOutline;
-export const Eye = IoEyeOutline;
-export const EyeOff = IoEyeOffOutline;
-export const Bot = IoSparklesOutline2;
-
-import { 
-  IoHelpCircleOutline,
-  IoGlobeOutline,
-  IoPersonAddOutline,
-  IoScaleOutline,
-  IoTrendingUpOutline,
-  IoRibbonOutline,
-  IoCreateOutline
-} from "react-icons/io5";
-
-export const HelpCircle = IoHelpCircleOutline;
-export const Globe = IoGlobeOutline;
-export const UserPlus = IoPersonAddOutline;
-export const Scale = IoScaleOutline;
-export const TrendingUp = IoTrendingUpOutline;
-export const Award = IoRibbonOutline;
-export const Edit = IoCreateOutline;
+export const AlertCircle = AlertCircleIcon;
+export const AlertTriangle = CircleIcon;
+export const ArrowLeft = ArrowLeft01Icon;
+export const ArrowRight = ArrowRight01Icon;
+export const ArrowRightLeft = CircleIcon;
+export const Banknote = CircleIcon;
+export const Bell = Dumbbell01Icon;
+export const BellOff = CircleIcon;
+export const Bookmark = Bookmark01Icon;
+export const BookOpen = BookOpen01Icon;
+export const Calendar = Calendar01Icon;
+export const Camera = Camera01Icon;
+export const Check = BookmarkCheck01Icon;
+export const CheckCircle = CircleIcon;
+export const CheckCircle2 = CircleIcon;
+export const CheckIcon = ComputerCheckIcon;
+export const CheckSquare = CircleIcon;
+export const ChefHat = ChefHatIcon;
+export const ChevronDown = CircleIcon;
+export const ChevronDownIcon = CircleIcon;
+export const ChevronLeft = CircleIcon;
+export const ChevronRight = CircleIcon;
+export const ChevronRightIcon = CircleIcon;
+export const ChevronUpIcon = CircleIcon;
+export const CircleIcon = AddCircleIcon;
+export const ClipboardList = CircleIcon;
+export const Clock = Clock01Icon;
+export const Code = CodeIcon;
+export const Coins = Coins01Icon;
+export const Compass = CompassIcon;
+export const Cpu = CpuIcon;
+export const Crosshair = CircleIcon;
+export const Download = Download01Icon;
+export const Dumbbell = Dumbbell01Icon;
+export const Edit2 = CircleIcon;
+export const FileText = CircleIcon;
+export const Film = Film01Icon;
+export const Filter = FilterIcon;
+export const Flag = Flag01Icon;
+export const Flame = CircleIcon;
+export const Gamepad2 = CircleIcon;
+export const Gavel = CircleIcon;
+export const Gift = GiftIcon;
+export const GraduationCap = CircleIcon;
+export const GripVerticalIcon = CircleIcon;
+export const Heart = HeartAddIcon;
+export const Home = Home01Icon;
+export const Image = Image01Icon;
+export const Info = CovidInfoIcon;
+export const Layers = Layers01Icon;
+export const LayoutDashboard = CircleIcon;
+export const Leaf = Leaf01Icon;
+export const Lightbulb = CircleIcon;
+export const Loader2 = CircleIcon;
+export const Loader2Icon = CircleIcon;
+export const Lock = LockIcon;
+export const LogOut = Logout01Icon;
+export const Mail = Mail01Icon;
+export const MapPin = MapPinIcon;
+export const MessageCircle = CircleIcon;
+export const MessageSquare = CircleIcon;
+export const MinusIcon = CallMinusIcon;
+export const Monitor = CircleIcon;
+export const MoreHorizontal = MoreHorizontalIcon;
+export const MoreVertical = MoreVerticalIcon;
+export const Music = AppleMusicIcon;
+export const Navigation = Navigation01Icon;
+export const Package = PackageIcon;
+export const Palette = CircleIcon;
+export const PanelLeft = PanelLeftIcon;
+export const PanelLeftIcon = PanelLeftIcon;
+export const Pause = PauseIcon;
+export const Plane = PlaneIcon;
+export const Play = PlayIcon;
+export const Plus = CrownPlusIcon;
+export const QrCode = QrCodeIcon;
+export const RefreshCw = CircleIcon;
+export const Repeat = RepeatIcon;
+export const Repeat2 = CircleIcon;
+export const RotateCcw = CircleIcon;
+export const Search = Search01Icon;
+export const SearchIcon = AiSearchIcon;
+export const Send = BitcoinSendIcon;
+export const Settings = Settings01Icon;
+export const Share2 = CircleIcon;
+export const Shield = Shield01Icon;
+export const ShieldAlert = CircleIcon;
+export const ShieldCheck = CircleIcon;
+export const ShieldOff = CircleIcon;
+export const Shirt = Shirt01Icon;
+export const Smartphone = SmartPhone01Icon;
+export const Sofa = Sofa01Icon;
+export const Sparkles = SparklesIcon;
+export const Square = SquareIcon;
+export const Star = StarIcon;
+export const Stethoscope = StethoscopeIcon;
+export const Tag = Tag01Icon;
+export const Trash2 = CircleIcon;
+export const Trophy = CircleIcon;
+export const User = UserIcon;
+export const UserMinus = UserMinus01Icon;
+export const Users = UserSearch01Icon;
+export const Wrench = Wrench01Icon;
+export const X = AdobeXdIcon;
+export const XCircle = SixCircleIcon;
+export const XIcon = BoundingBoxIcon;
+export const Zap = ZapIcon;
+export const ChevronLeftIcon = CircleIcon;
+export const MoreHorizontalIcon = MoreHorizontalIcon;
+export const Box = AlignBoxBottomCenterIcon;
+export const Building2 = CircleIcon;
+export const BarChart2 = CircleIcon;
+export const ScrollText = CircleIcon;
+export const UserCog = CircleIcon;
+export const Activity = Activity01Icon;
+export const ArrowUpRight = ArrowUpRight01Icon;
+export const Mic = Mic01Icon;
+export const CheckCheck = CircleIcon;
+export const Upload = Upload01Icon;
+export const Phone = AiPhone01Icon;
+export const Smile = SmileIcon;
+export const Handshake = CircleIcon;
+export const CalendarIcon = CircleIcon;
+export const Moon = MoonIcon;
+export const Sun = Sun01Icon;
+export const Eye = EyeIcon;
+export const EyeOff = CircleIcon;
+export const Bot = BotIcon;
+export const HelpCircle = HelpCircleIcon;
+export const Globe = GlobeIcon;
+export const UserPlus = CircleIcon;
+export const Scale = BalanceScaleIcon;
+export const TrendingUp = CircleIcon;
+export const Award = Award01Icon;
+export const Edit = Edit01Icon;

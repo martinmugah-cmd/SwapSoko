@@ -349,8 +349,8 @@ function LocationModal({
 
             {/* Discovery Mode selector */}
             <div className="px-0 flex-shrink-0 mb-2">
-              <div className="flex gap-1 overflow-x-auto pb-2 px-6 [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                <div className="flex bg-slate-200/40 p-1 rounded-full backdrop-blur-md shadow-inner border border-white/20">
+              <div className="flex flex-wrap gap-2 px-6 pb-2">
+                <div className="flex flex-wrap w-full flex-wrap gap-2 bg-slate-200/40 p-2 rounded-[24px] backdrop-blur-md shadow-inner border border-white/20 justify-center">
                   {[
                     { value: "campus", label: "Campus" },
                     { value: "university", label: "University" },
@@ -362,7 +362,7 @@ function LocationModal({
                     <button
                       key={opt.value}
                       onClick={() => setDiscoveryMode(opt.value)}
-                      className={`whitespace-nowrap px-3 py-1.5 rounded-full text-[13px] font-bold transition-all duration-300 ${
+                      className={`whitespace-nowrap flex-1 text-center min-w-[30%] px-2 py-1.5 rounded-full text-[13px] font-bold transition-all duration-300 ${
                         discoveryMode === opt.value
                           ? "bg-white text-slate-900 shadow-sm"
                           : "bg-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-200/50"
@@ -383,7 +383,7 @@ function LocationModal({
                     <button
                       key={opt.value}
                       onClick={() => setRadius(opt.value)}
-                      className={`whitespace-nowrap px-3 py-1.5 rounded-full text-[12px] font-bold transition-all border ${
+                      className={`whitespace-nowrap flex-1 text-center min-w-[30%] px-2 py-1.5 rounded-full text-[12px] font-bold transition-all border ${
                         radius === opt.value
                           ? "bg-emerald-500 text-white border-emerald-500 shadow-sm shadow-emerald-500/20"
                           : "bg-white/60 text-slate-600 border-white hover:bg-white"

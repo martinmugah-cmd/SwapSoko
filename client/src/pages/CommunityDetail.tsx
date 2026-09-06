@@ -341,7 +341,7 @@ export default function CommunityDetailPage() {
 
   if (!community) {
     return (
-      <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center px-6 text-center">
+      <div className="min-h-[100dvh] bg-[#F8FAFC] flex flex-col items-center justify-center px-6 text-center">
         <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center text-gray-400 mx-auto mb-4"><Package className="w-8 h-8" /></div>
         <p className="font-bold text-slate-900">Community not found</p>
         <button onClick={() => navigate("/communities")} className="mt-4 text-blue-600 text-sm font-semibold">
@@ -357,7 +357,7 @@ export default function CommunityDetailPage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-[#F8FAFC] bottom-nav-safe pb-24"
+      className="min-h-[100dvh] bg-[#F8FAFC] bottom-nav-safe pb-24"
     >
       {/* Dynamic Floating Header */}
       <div className="sticky top-0 z-40 px-4 pt-4 pb-2 bg-[#F8FAFC]/80 backdrop-blur-3xl">

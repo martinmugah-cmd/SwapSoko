@@ -24,7 +24,7 @@ export function useAuth(options?: UseAuthOptions) {
           email: session.user.email || "",
           name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || "",
           avatarUrl: session.user.user_metadata?.avatar_url || "",
-          isOnboarded: session.user.user_metadata?.isOnboarded || false,
+          isOnboarded: session.user.user_metadata?.isOnboarded || session.user.user_metadata?.is_onboarded || false,
           metadata: session.user.user_metadata || {},
         });
       }
@@ -38,7 +38,7 @@ export function useAuth(options?: UseAuthOptions) {
           email: session.user.email || "",
           name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || "",
           avatarUrl: session.user.user_metadata?.avatar_url || "",
-          isOnboarded: session.user.user_metadata?.isOnboarded || false,
+          isOnboarded: session.user.user_metadata?.isOnboarded || session.user.user_metadata?.is_onboarded || false,
           metadata: session.user.user_metadata || {},
         });
       } else {
@@ -70,7 +70,7 @@ export function useAuth(options?: UseAuthOptions) {
           email: data.user.email || "",
           name: data.user.user_metadata?.name || data.user.email?.split('@')[0] || "",
           avatarUrl: data.user.user_metadata?.avatar_url || "",
-          isOnboarded: data.user.user_metadata?.isOnboarded || false,
+          isOnboarded: data.user.user_metadata?.isOnboarded || data.user.user_metadata?.is_onboarded || false,
           metadata: data.user.user_metadata || {},
         });
       }

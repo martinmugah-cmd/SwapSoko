@@ -241,7 +241,7 @@ export default function PostPage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-white flex flex-col relative overflow-hidden font-sans"
+      className="min-h-[100dvh] bg-white flex flex-col relative overflow-hidden font-sans"
     >
       {/* Premium Background Blurs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">

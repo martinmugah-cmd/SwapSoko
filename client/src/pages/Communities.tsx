@@ -424,7 +424,7 @@ export default function CommunitiesPage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-[#F8FAFC] text-slate-900 bottom-nav-safe selection:bg-emerald-500/20 font-sans"
+      className="min-h-[100dvh] bg-[#F8FAFC] text-slate-900 bottom-nav-safe selection:bg-emerald-500/20 font-sans"
     >
       {/* Dynamic Floating Header */}
       <div className="sticky top-0 z-40 px-4 pt-4 pb-2">
