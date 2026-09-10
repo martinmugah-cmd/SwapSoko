@@ -1,4 +1,7 @@
 // Generated mapping to Hugeicons
+
+
+
 import { 
 AlertCircleIcon,
 	CircleIcon as FallbackIcon,
@@ -171,4 +174,54 @@ export const Scale = BalanceScaleIcon;
 export const Award = Award01Icon;
 export const Edit = Edit01Icon;
 
-export { AlertTriangle, ArrowRightLeft, Banknote, BellOff, CheckCircle, CheckCircle2, CheckSquare, ChevronDown, ChevronDownIcon, ChevronLeft, ChevronRight, ChevronRightIcon, ChevronUpIcon, ClipboardList, Crosshair, Edit2, FileText, Flame, Gamepad2, Gavel, GraduationCap, GripVerticalIcon, LayoutDashboard, Lightbulb, Loader2, Loader2Icon, MessageCircle, MessageSquare, Monitor, Palette, RefreshCw, Repeat2, RotateCcw, Share2, ShieldAlert, ShieldCheck, ShieldOff, Trash2, Trophy, ChevronLeftIcon, Building2, BarChart2, ScrollText, UserCog, CheckCheck, Handshake, CalendarIcon, EyeOff, UserPlus, TrendingUp } from "lucide-react";
+
+export const AlertTriangle = Alert01Icon;
+export const ArrowRightLeft = ArrowDataTransferDiagonalIcon;
+export const Banknote = Money01Icon;
+export const BellOff = NotificationOff01Icon;
+export const CheckCircle = CheckmarkCircle01Icon;
+export const CheckCircle2 = CheckmarkCircle02Icon;
+export const CheckSquare = CheckmarkSquare01Icon;
+export const ChevronDown = ArrowDown01Icon;
+export const ChevronDownIcon = ArrowDown01Icon;
+export const ChevronLeft = ArrowLeft01Icon;
+export const ChevronLeftIcon = ArrowLeft01Icon;
+export const ChevronRight = ArrowRight01Icon;
+export const ChevronRightIcon = ArrowRight01Icon;
+export const ChevronUpIcon = ArrowUp01Icon;
+export const ClipboardList = ClipboardIcon;
+export const Crosshair = FallbackIcon;
+export const Edit2 = Edit02Icon;
+export const FileText = File01Icon;
+export const Flame = Fire02Icon;
+export const Gamepad2 = GameIcon;
+export const Gavel = AuctionIcon;
+export const GraduationCap = GlobalEducationIcon;
+export const GripVerticalIcon = Drag01Icon;
+export const LayoutDashboard = DashboardBrowsingIcon;
+export const Lightbulb = Idea01Icon;
+export const Loader2 = Loading02Icon;
+export const Loader2Icon = Loading02Icon;
+export const MessageCircle = Comment01Icon;
+export const MessageSquare = Comment02Icon;
+export const Monitor = FallbackIcon;
+export const Palette = ColorPickerIcon;
+export const RefreshCw = Refresh01Icon;
+export const Repeat2 = ArrowReloadHorizontalIcon;
+export const RotateCcw = Undo02Icon;
+export const Share2 = Share01Icon;
+export const ShieldAlert = Shield01Icon;
+export const ShieldCheck = Shield01Icon;
+export const ShieldOff = FallbackIcon;
+export const Trash2 = Delete02Icon;
+export const Trophy = Award01Icon;
+export const Building2 = Building02Icon;
+export const BarChart2 = Analytics01Icon;
+export const ScrollText = ScrollIcon;
+export const UserCog = UserSettings01Icon;
+export const CheckCheck = CheckmarkBadge01Icon;
+export const Handshake = FallbackIcon;
+export const CalendarIcon = Calendar01Icon;
+export const EyeOff = ViewOffIcon;
+export const UserPlus = UserAdd01Icon;
+export const TrendingUp = FallbackIcon;

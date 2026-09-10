@@ -25,7 +25,7 @@ import CommunityDetailPage from "./pages/CommunityDetail";
 // ─── Bottom Navigation ────────────────────────────────────────────────────────
 function BottomNav() {
   const [location, navigate] = useLocation();
-    const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
 
@@ -44,50 +44,40 @@ function BottomNav() {
     };
     fetchUnread();
     const interval = setInterval(fetchUnread, 3000);
-    
-    // Using global window event dispatch since hooks can't easily cross if we moved this to Router, wait I can just dispatch an event
-    const handleUpdate = () => {
-      fetchUnread();
-    };
-
-    return () => { 
-      clearInterval(interval);
-    };
+    const handleUpdate = () => fetchUnread();
+    return () => clearInterval(interval);
   }, [isAuthenticated, user]);
 
-  const notificationsQuery = trpc.notifications.list.useQuery(undefined, { enabled: isAuthenticated });
-  const unreadNotificationsCount = isAuthenticated ? (notificationsQuery.data?.notifications || []).filter((n: any) => !n.isRead).length : 0;
-  
   const profileQuery = trpc.profile.me.useQuery(undefined, { enabled: isAuthenticated });
   const isAdmin = profileQuery.data?.role === "admin" || profileQuery.data?.role === "super_admin" || profileQuery.data?.role === "moderator";
 
   const tabs: Array<{ path: string, icon: any, label: string, isCenter?: boolean, badge?: number }> = [
-    { path: "/", icon: Home, label: "Home" },
-    { path: "/swipes", icon: Repeat2, label: "Swipes" },
-    { path: "/post", icon: Plus, label: "Post", isCenter: true },
-    { path: "/chat", icon: MessageCircle, label: "Chat", badge: unreadMessagesCount },
-    { path: "/profile", icon: User, label: "Profile" },
+    { path: "/", icon: Home01Icon, label: "Home" },
+    { path: "/swipes", icon: Copy01Icon, label: "Swipes" },
+    { path: "/post", icon: Store01Icon, label: "Post", isCenter: true },
+    { path: "/chat", icon: Comment01Icon, label: "Chat", badge: unreadMessagesCount },
+    { path: "/profile", icon: UserCircleIcon, label: "Profile" },
   ];
-  
-  // Admin tab is now a floating button
 
   const isActive = (path: string) => {
     if (path === "/") return location === "/";
     return location.startsWith(path);
   };
 
-  // Hide bottom nav on certain pages
   const hideNav = location === "/post" || location === "/edit-profile" || location === "/swap-guru" || location.startsWith('/communities/') || (location.startsWith("/profile/") && location.length > 9) || (location.startsWith("/chat/") && location.length > 6);
-
   if (hideNav) return null;
 
   return (
     <>
-    <nav
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2.5rem)] max-w-[420px] bg-white/85 backdrop-blur-[24px] border border-white/60 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-[32px] z-[200]"
-      style={{ paddingBottom: "max(0px, env(safe-area-inset-bottom, 0px))" }}
-    >
-      <div className="flex items-center justify-around px-3 py-2 relative">
+    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2.5rem)] max-w-[420px] h-[72px] z-[200]">
+      <div 
+        className="absolute inset-0 bg-white/95 backdrop-blur-[24px] shadow-[0_12px_40px_rgba(0,0,0,0.08)] rounded-[36px]"
+        style={{
+          maskImage: "radial-gradient(circle at 50% 0px, transparent 38px, black 39px)",
+          WebkitMaskImage: "radial-gradient(circle at 50% 0px, transparent 38px, black 39px)"
+        }}
+      />
+      <div className="flex items-center justify-around h-full relative px-2">
         {tabs.map((tab) => {
           const active = isActive(tab.path);
           if (tab.isCenter) {
@@ -95,66 +85,47 @@ function BottomNav() {
               <Link href={tab.path} key={tab.path}>
                 <motion.div
                   whileTap={{ scale: 0.88 }}
-                  className="flex flex-col items-center -mt-6 relative z-10 cursor-pointer"
+                  className="flex flex-col items-center justify-center -mt-[34px] relative z-10 cursor-pointer w-[60px] h-[60px] rounded-full bg-gradient-to-b from-[#F97316] to-[#EA580C] shadow-[0_8px_16px_rgba(234,88,12,0.35)]"
                 >
-                  <motion.div
-                    className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl"
-                    style={{
-                      background: "linear-gradient(135deg, #22C55E 0%, #16A34A 100%)",
-                      boxShadow: "0 8px 24px rgba(34,197,94,0.45)",
-                    }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.92 }}
-                  >
-                    <Plus className="w-7 h-7 text-white" strokeWidth={2.5} />
-                  </motion.div>
-                  <span className="text-[10px] font-medium text-gray-500 mt-1">{tab.label}</span>
+                  <tab.icon className="w-8 h-8 text-white" strokeWidth={2.5} />
                 </motion.div>
               </Link>
             );
           }
           return (
-              <Link href={tab.path} key={tab.path}>
-                <motion.div
-                  whileTap={{ scale: 0.88 }}
-                  className="flex flex-col items-center gap-0.5 px-3 py-1 min-w-[52px] relative cursor-pointer"
-                >
-              <div className="relative">
-                <tab.icon
-                  className={`w-5 h-5 transition-all duration-200 ${active ? "text-[#22C55E]" : "text-[#64748B]"}`}
-                  strokeWidth={active ? 2.5 : 2}
-                />
-                {/* Redesigned Notification badge */}
-                {tab.badge !== undefined && tab.badge > 0 && (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="absolute -top-1 -right-1.5 w-4 h-4 rounded-full flex items-center justify-center border-2 border-white shadow-sm"
-                    style={{ background: "linear-gradient(135deg, #EF4444 0%, #DC2626 100%)" }}
-                  >
-                    <span className="text-white text-[8px] font-bold tracking-tighter" style={{ lineHeight: 1 }}>{tab.badge > 9 ? "9+" : tab.badge}</span>
-                  </motion.div>
-                )}
-              </div>
-              <span
-                className={`text-[10px] font-medium transition-colors duration-200 ${active ? "text-[#22C55E]" : "text-[#64748B]"}`}
+            <Link href={tab.path} key={tab.path}>
+              <motion.div
+                whileTap={{ scale: 0.88 }}
+                className="flex flex-col items-center gap-1 min-w-[56px] relative cursor-pointer pt-1"
               >
-                {tab.label}
-              </span>
-              {/* Active indicator dot */}
-              <AnimatePresence>
-                {active && (
-                  <motion.div
-                    layoutId="nav-active-dot"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 0 }}
-                    className="w-1 h-1 rounded-full bg-[#22C55E] mt-0.5"
+                <div className="relative">
+                  <tab.icon
+                    className={`w-[22px] h-[22px] transition-colors duration-200 ${active ? "text-[#EA580C]" : "text-[#94A3B8]"}`}
+                    strokeWidth={active ? 2.5 : 2}
+                    fill={active ? "#EA580C" : "none"}
                   />
-                )}
-              </AnimatePresence>
-            </motion.div>
-          </Link>
+                  {tab.badge && tab.badge > 0 && (
+                    <div className="absolute -top-1.5 -right-2 bg-red-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
+                      {tab.badge > 99 ? '99+' : tab.badge}
+                    </div>
+                  )}
+                </div>
+                <span className={`text-[10px] font-semibold transition-colors duration-200 ${active ? "text-[#EA580C]" : "text-[#94A3B8]"}`}>
+                  {tab.label}
+                </span>
+                <AnimatePresence>
+                  {active && (
+                    <motion.div
+                      layoutId="nav-active-dot"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      exit={{ scale: 0 }}
+                      className="w-1.5 h-1.5 rounded-full bg-[#EA580C] absolute -bottom-2.5"
+                    />
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            </Link>
           );
         })}
       </div>
@@ -167,15 +138,9 @@ function BottomNav() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="fixed bottom-[100px] z-[201] flex flex-col items-center cursor-pointer"
-          style={{ left: "calc(50% + 140px)" }}
+          className="fixed bottom-[110px] right-6 w-12 h-12 bg-slate-900 rounded-full flex items-center justify-center shadow-xl cursor-pointer z-50 border-2 border-white/20"
         >
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1E293B] to-[#0F172A] flex items-center justify-center shadow-[0_8px_30px_rgba(15,23,42,0.3)] border-2 border-white">
-            <Shield className="w-6 h-6 text-white" />
-          </div>
-          <div className="mt-1 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-full shadow-sm">
-            <span className="text-[10px] font-bold text-[#0F172A] uppercase tracking-wider">Admin</span>
-          </div>
+          <span className="text-white text-xs font-bold">Admin</span>
         </motion.div>
       </Link>
     )}
@@ -208,6 +173,7 @@ import AppealsPage from "./pages/Appeals";
 import VerificationPage from "./pages/Verification";
 
 import { useAppStore } from "./store";
+import { Home01Icon, Copy01Icon, Store01Icon, Comment01Icon, UserCircleIcon } from "hugeicons-react";
 
 function SavedItemsSyncer() {
   const { isAuthenticated, user } = useAuth();
