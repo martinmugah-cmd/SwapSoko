@@ -11,6 +11,7 @@ import {
 import { toast } from "sonner";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
+import { INTERESTS } from "@/lib/interests";
 
 const UNIVERSITIES = [
   { name: "JKUAT", domain: "students.jkuat.ac.ke", campuses: ["Main Campus (Juja)", "Karen", "CBD Campus"] },
