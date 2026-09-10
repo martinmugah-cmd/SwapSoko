@@ -7,17 +7,21 @@ import { useAppStore } from "@/store";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import {
-  Plus, Star, MapPin, Users, Zap, Heart, Bell,
+  Plus, Star, MapPin, Users, Zap, Heart, Bell, Filter,
   ChevronRight, Search, 
   Sparkles, Shield, Flame, Gift, Bot, Package, ArrowRight, Activity, Clock
 } from "@/lib/icons";
 
 import { PullToRefresh } from "@/components/PullToRefresh";
+import { FilterSheet } from "@/components/FilterSheet";
 import { createPortal } from "react-dom";
 import { ThinkingOrb } from "thinking-orbs";
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
+  const [showFilters, setShowFilters] = useState(false);
+  const activeFilterCount = [(filters.categories || []).filter(c => c !== 'All').length > 0, (filters.wantedCategories || []).filter(c => c !== 'All').length > 0, (filters.conditions || []).filter(c => c !== 'Any').length > 0, filters.maxDistanceKm, filters.minEsv !== null, filters.maxEsv !== null, filters.cashTopUpAllowed, (filters as any).noCashNeeded, (filters as any).multiWayAvailable].filter(Boolean).length;
+
   const [, navigate] = useLocation();
   const [selectedLocation, setSelectedLocation] = useState<any>(null);
   const [showLocationSelector, setShowLocationSelector] = useState(false);
@@ -116,6 +120,19 @@ export default function Home() {
             </div>
             
             <div className="flex items-center gap-2.5 pr-1">
+              <motion.button
+                onClick={() => setShowFilters(true)}
+                className="relative w-11 h-11 flex items-center justify-center rounded-[20px] bg-white/50 backdrop-blur-md hover:bg-white/80 transition-colors border border-white/60 shadow-sm"
+                whileTap={{ scale: 0.9 }}
+              >
+                <Filter size={20} className="text-slate-800" />
+                {activeFilterCount > 0 && (
+                  <span className="absolute top-2 right-2 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full flex items-center justify-center shadow-sm text-[8px] font-bold text-white">{activeFilterCount}</span>
+                )}
+              </motion.button>
+              
+              <FilterSheet open={showFilters} onOpenChange={setShowFilters} />
+
               <motion.button
                 onClick={() => navigate("/notifications")}
                 className="relative w-11 h-11 flex items-center justify-center rounded-[20px] bg-white/50 backdrop-blur-md hover:bg-white/80 transition-colors border border-white/60 shadow-sm"
@@ -374,7 +391,7 @@ export default function Home() {
                    <Clock className="w-8 h-8 text-slate-400" />
                  </div>
                  <h3 className="font-black text-slate-900 text-[20px] mb-1">Check back soon</h3>
-                 <p className="text-[14px] text-slate-500 font-medium max-w-[200px]">No active swaps near you right now.</p>
+                 <p className="text-[14px] text-slate-500 font-medium max-w-[280px] whitespace-normal text-balance">No active swaps near you right now.</p>
               </div>
             )}
           </div>

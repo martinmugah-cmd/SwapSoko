@@ -85,7 +85,7 @@ function BottomNav() {
               <Link href={tab.path} key={tab.path}>
                 <motion.div
                   whileTap={{ scale: 0.88 }}
-                  className="flex flex-col items-center justify-center -mt-[34px] relative z-10 cursor-pointer w-[60px] h-[60px] rounded-full bg-gradient-to-b from-[#F97316] to-[#EA580C] shadow-[0_8px_16px_rgba(234,88,12,0.35)]"
+                  className="flex flex-col items-center justify-center -mt-[34px] relative z-10 cursor-pointer w-[60px] h-[60px] rounded-full bg-gradient-to-b from-[#10B981] to-[#059669] shadow-[0_8px_16px_rgba(16,185,129,0.35)]"
                 >
                   <tab.icon className="w-8 h-8 text-white" strokeWidth={2.5} />
                 </motion.div>
@@ -100,17 +100,17 @@ function BottomNav() {
               >
                 <div className="relative">
                   <tab.icon
-                    className={`w-[22px] h-[22px] transition-colors duration-200 ${active ? "text-[#EA580C]" : "text-[#94A3B8]"}`}
+                    className={`w-[22px] h-[22px] transition-colors duration-200 ${active ? "text-[#10B981]" : "text-[#94A3B8]"}`}
                     strokeWidth={active ? 2.5 : 2}
-                    fill={active ? "#EA580C" : "none"}
+                    
                   />
-                  {tab.badge && tab.badge > 0 && (
+                  {tab.badge ? (tab.badge > 0 ? (
                     <div className="absolute -top-1.5 -right-2 bg-red-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
                       {tab.badge > 99 ? '99+' : tab.badge}
                     </div>
-                  )}
+                  ) : null) : null}
                 </div>
-                <span className={`text-[10px] font-semibold transition-colors duration-200 ${active ? "text-[#EA580C]" : "text-[#94A3B8]"}`}>
+                <span className={`text-[10px] font-semibold transition-colors duration-200 ${active ? "text-[#10B981]" : "text-[#94A3B8]"}`}>
                   {tab.label}
                 </span>
                 <AnimatePresence>
@@ -120,7 +120,7 @@ function BottomNav() {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       exit={{ scale: 0 }}
-                      className="w-1.5 h-1.5 rounded-full bg-[#EA580C] absolute -bottom-2.5"
+                      className="w-1.5 h-1.5 rounded-full bg-[#10B981] absolute -bottom-2.5"
                     />
                   )}
                 </AnimatePresence>

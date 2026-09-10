@@ -975,7 +975,7 @@ const createProxy = (path: string[] = []): any => {
                        // Essential rules
                        if (l.status === 'finalized' || l.status === 'reserved') return false;
                        if (path[1] === 'feed' && activeUserId && l.userId === activeUserId) return false;
-                       if (path[1] === 'feed' && (!l.media || !l.media.some((m: any) => m.type === 'video'))) return false;
+                       if (path[0] === 'feed' && path[1] === 'list' && (!l.media || !l.media.some((m: any) => m.type === 'video'))) return false;
                        if (l.status === 'active' && !l.hasOffers && l.createdAt) {
                            let age = now - new Date(l.createdAt).getTime();
                            let maxAge = 30 * 24 * 60 * 60 * 1000;
